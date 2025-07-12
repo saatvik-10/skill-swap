@@ -25,4 +25,8 @@ export class UserService {
   async deleteUser(id: string) {
     return Users.deleteOne({ _id: id });
   }
+
+  async getAllPublicUsers() {
+    return Users.find({ public: true });
+  }
 }
