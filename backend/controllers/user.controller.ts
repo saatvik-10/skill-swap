@@ -48,6 +48,7 @@ export class UserController {
       const users = await userService.getAllPublicUsers();
       return ctx.json(users, StatusCodes.OK);
     } catch (err) {
+      console.error(err)
       return ctx.json(
         { error: "Internal Server Error" },
         StatusCodes.INTERNAL_SERVER_ERROR,
@@ -68,7 +69,7 @@ export class UserController {
       const searchedUsers = searched.map((user) => user.item);
 
       return ctx.json(
-        responseUserSchema.array().parse(searchedUsers),
+        searchedUsers,
         StatusCodes.OK,
       );
     } catch (err) {
