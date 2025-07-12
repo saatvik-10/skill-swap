@@ -39,10 +39,29 @@ export type RegisterUser = z.infer<typeof registerUserSchema>;
 
 export const loginUserSchema = z.object({
   email: z.email(),
-  password: z
-    .string()
-    .min(8)
-    .max(20)
+  password: z.string().min(8).max(20),
 });
 
 export type LoginUser = z.infer<typeof loginUserSchema>;
+
+export const responseUserSchema = z.object({
+  _id: z.string(),
+  username: z.string().min(3).max(20),
+  email: z.email(),
+  profilePicture: z.url().optional(),
+  location: z.string().optional(),
+  skillsOffered: z.array(z.string()).optional().default([]),
+  skillsWanted: z.array(z.string()).optional().default([]),
+  public: z.boolean().optional().default(false),
+  availability: z
+    .object({
+      Monday: z.boolean().optional(),
+      Tuesday: z.boolean().optional(),
+      Wednesday: z.boolean().optional(),
+      Thursday: z.boolean().optional(),
+      Friday: z.boolean().optional(),
+      Saturday: z.boolean().optional(),
+      Sunday: z.boolean().optional(),
+    })
+    .optional(),
+});
