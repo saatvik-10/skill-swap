@@ -11,7 +11,6 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-import Footer from './Footer';
 
 export default function SkillSwapLanding() {
   const users = [
@@ -287,7 +286,6 @@ export default function SkillSwapLanding() {
         </div>
       </section>
 
-      <Footer />
     </div>
   );
 }

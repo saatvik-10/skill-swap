@@ -41,12 +41,14 @@ export default function Navbar() {
 
           {/* User Profile Section */}
           <div className='hidden md:flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200'>
-            <div className='flex items-center space-x-2'>
-              <div className='w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center'>
-                <User className='h-4 w-4 text-blue-500' />
+            <Link href={'/profile'}>
+              <div className='flex items-center space-x-2'>
+                <div className='w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center'>
+                  <User className='h-4 w-4 text-blue-500' />
+                </div>
+                <span className='text-gray-700 font-medium'>John Doe</span>
               </div>
-              <span className='text-gray-700 font-medium'>John Doe</span>
-            </div>
+            </Link>
             <Button
               variant='outline'
               size='sm'
@@ -101,14 +103,13 @@ export default function Navbar() {
               </div>
               <span className='text-gray-700 font-medium'>John Doe</span>
             </div>
-            <div className='flex space-x-2'>
-              <Button
-                size='sm'
-                className='flex-1 bg-blue-500 hover:bg-blue-600'
-                onClick={() => setIsMobileMenuOpen(false)}
+            <div className='flex space-x-2 w-full'>
+              <Link
+                href={'/profile'}
+                className='flex-1 bg-blue-500 hover:bg-blue-600 rounded-lg text-white flex items-center justify-center'
               >
                 Profile
-              </Button>
+              </Link>
               <Button
                 variant='outline'
                 size='sm'
