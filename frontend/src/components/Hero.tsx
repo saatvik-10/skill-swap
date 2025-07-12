@@ -1,11 +1,4 @@
-import {
-  Search,
-  Users,
-  Star,
-  MessageCircle,
-  Calendar,
-  Shield,
-} from 'lucide-react';
+import { Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -18,7 +11,7 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
-// import Navbar from "@/components/navbar"
+import Footer from './Footer';
 
 export default function SkillSwapLanding() {
   const users = [
@@ -64,37 +57,8 @@ export default function SkillSwapLanding() {
     },
   ];
 
-  const features = [
-    {
-      icon: <Users className='h-8 w-8 text-blue-600' />,
-      title: 'Smart Matching',
-      description:
-        'Our AI-powered algorithm connects you with the perfect skill exchange partners based on your interests and availability.',
-    },
-    {
-      icon: <MessageCircle className='h-8 w-8 text-green-600' />,
-      title: 'Secure Communication',
-      description:
-        'Built-in messaging system with video calls, file sharing, and progress tracking to ensure smooth collaboration.',
-    },
-    {
-      icon: <Calendar className='h-8 w-8 text-purple-600' />,
-      title: 'Flexible Scheduling',
-      description:
-        'Coordinate sessions with integrated calendar sync and automated reminders for both parties.',
-    },
-    {
-      icon: <Shield className='h-8 w-8 text-orange-600' />,
-      title: 'Verified Profiles',
-      description:
-        'All users go through verification process with skill assessments and community reviews for trust and quality.',
-    },
-  ];
-
   return (
-    <div className='min-h-screen bg-gradient-to-br from-slate-50 to-blue-50'>
-      {/* Header */}
-
+    <div className='min-h-screen bg-white'>
       {/* Hero Section */}
       <section className='py-20 px-4'>
         <div className='container mx-auto text-center max-w-4xl'>
@@ -114,7 +78,7 @@ export default function SkillSwapLanding() {
       </section>
 
       {/* Search Section */}
-      <section className='py-16 px-4 bg-white'>
+      <section className='py-16 px-4 bg-gradient-to-br from-slate-50 to-blue-50'>
         <div className='container mx-auto max-w-4xl'>
           <h2 className='text-3xl font-bold text-center text-gray-900 mb-8'>
             Find Your Perfect Skill Match
@@ -148,180 +112,98 @@ export default function SkillSwapLanding() {
           </div>
 
           {/* User Cards */}
-          <div className='space-y-6'>
+          <div className='space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 w-max'>
             {users.map((user) => (
               <Card
                 key={user.id}
-                className='hover:shadow-lg transition-all duration-300 border-0 shadow-md'
+                className='border-0 shadow-lg hover:shadow-xl transition-all duration-300 rounded-2xl bg-white/90 backdrop-blur-sm'
               >
-                <CardContent className='p-4 sm:p-6 lg:p-8'>
-                  {/* Mobile Layout */}
-                  <div className='block lg:hidden'>
-                    <div className='flex flex-col items-center text-center space-y-4'>
-                      <Image
-                        src={user.avatar || '/placeholder.svg'}
-                        alt={user.name}
-                        width={80}
-                        height={80}
-                        className='rounded-full ring-4 ring-blue-50'
-                      />
+                <CardContent className='p-4'>
+                  <div className='flex flex-col lg:flex-row items-center lg:items-stretch gap-6'>
+                    {/* Avatar & Basic Info */}
+                    <div className='flex flex-col items-center justify-center gap-3 lg:w-48'>
+                      <div className='relative'>
+                        <Image
+                          src={user.avatar || '/placeholder.svg'}
+                          alt={user.name}
+                          width={80}
+                          height={80}
+                          className='rounded-full ring-4 ring-blue-100 shadow-lg object-cover'
+                        />
+                        <span
+                          className={`absolute bottom-2 right-2 w-4 h-4 rounded-full border-2 border-white ${user.availability === 'Available' ? 'bg-green-400 animate-pulse' : 'bg-gray-400'}`}
+                        ></span>
+                      </div>
+                      <h3 className='text-lg font-bold text-gray-900'>
+                        {user.name}
+                      </h3>
+                      <p className='text-xs text-gray-500 flex items-center gap-1'>
+                        <span className='w-2 h-2 bg-gray-400 rounded-full'></span>
+                        {user.location}
+                      </p>
+                      <div className='flex items-center gap-2'>
+                        <Badge
+                          variant={
+                            user.availability === 'Available'
+                              ? 'default'
+                              : 'secondary'
+                          }
+                          className={
+                            user.availability === 'Available'
+                              ? 'bg-green-100 text-green-800 border-green-200 px-2 py-1'
+                              : 'bg-gray-100 text-gray-600 border-gray-200 px-2 py-1'
+                          }
+                        >
+                          {user.availability}
+                        </Badge>
+                        <div className='flex items-center gap-1'>
+                          <Star className='h-4 w-4 fill-yellow-400 text-yellow-400' />
+                          <span className='font-medium text-gray-900'>
+                            {user.rating}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
 
-                      <div className='w-full'>
-                        <h3 className='text-xl font-semibold text-gray-900 mb-2'>
-                          {user.name}
-                        </h3>
-
-                        <div className='flex items-center justify-center space-x-3 mb-3'>
-                          <Badge
-                            variant={
-                              user.availability === 'Available'
-                                ? 'default'
-                                : 'secondary'
-                            }
-                            className={
-                              user.availability === 'Available'
-                                ? 'bg-green-100 text-green-800 border-green-200'
-                                : ''
-                            }
-                          >
-                            {user.availability}
-                          </Badge>
-                          <div className='flex items-center space-x-1'>
-                            <Star className='h-4 w-4 fill-yellow-400 text-yellow-400' />
-                            <span className='font-medium text-gray-900'>
-                              {user.rating}
-                            </span>
+                    {/* Skills & Actions */}
+                    <div className='flex-1 flex flex-col justify-between gap-4 w-full'>
+                      <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+                        <div>
+                          <span className='text-xs font-semibold text-green-700 mb-2 block'>
+                            Skills Offered
+                          </span>
+                          <div className='flex flex-wrap gap-2'>
+                            {user.skillsOffered.map((skill) => (
+                              <Badge
+                                key={skill}
+                                className='bg-gradient-to-r from-green-100 to-green-200 text-green-800 border-green-200 px-3 py-1 text-xs font-medium shadow-sm hover:scale-105 transition-transform duration-200'
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-
-                        <p className='text-gray-600 mb-4 flex items-center justify-center'>
-                          <span className='w-2 h-2 bg-gray-400 rounded-full mr-2'></span>
-                          {user.location}
-                        </p>
-
-                        <div className='space-y-4 mb-6'>
-                          <div>
-                            <span className='text-sm font-medium text-green-700 block mb-2 text-center'>
-                              Skills Offered
-                            </span>
-                            <div className='flex flex-wrap gap-2 justify-center'>
-                              {user.skillsOffered.map((skill) => (
-                                <Badge
-                                  key={skill}
-                                  className='bg-green-50 text-green-700 border-green-200 hover:bg-green-100 text-xs'
-                                >
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div>
-                            <span className='text-sm font-medium text-amber-700 block mb-2 text-center'>
-                              Skills Wanted
-                            </span>
-                            <div className='flex flex-wrap gap-2 justify-center'>
-                              {user.skillsWanted.map((skill) => (
-                                <Badge
-                                  key={skill}
-                                  className='bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 text-xs'
-                                >
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
+                        <div>
+                          <span className='text-xs font-semibold text-amber-700 mb-2 block'>
+                            Skills Wanted
+                          </span>
+                          <div className='flex flex-wrap gap-2'>
+                            {user.skillsWanted.map((skill) => (
+                              <Badge
+                                key={skill}
+                                className='bg-gradient-to-r from-yellow-100 to-amber-100 text-amber-800 border-amber-200 px-3 py-1 text-xs font-medium shadow-sm hover:scale-105 transition-transform duration-200'
+                              >
+                                {skill}
+                              </Badge>
+                            ))}
                           </div>
                         </div>
-
-                        <Button className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 text-base font-medium w-full'>
+                      </div>
+                      <div className='flex justify-end mt-4'>
+                        <Button className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 text-base font-semibold rounded-xl shadow-md'>
                           Send Request
                         </Button>
                       </div>
-                    </div>
-                  </div>
-
-                  {/* Desktop Layout */}
-                  <div className='hidden lg:flex lg:items-center lg:justify-between'>
-                    <div className='flex items-center space-x-6'>
-                      <Image
-                        src={user.avatar || '/placeholder.svg'}
-                        alt={user.name}
-                        width={80}
-                        height={80}
-                        className='rounded-full ring-4 ring-blue-50'
-                      />
-                      <div className='flex-1'>
-                        <div className='flex items-center space-x-4 mb-3'>
-                          <h3 className='text-2xl font-semibold text-gray-900'>
-                            {user.name}
-                          </h3>
-                          <Badge
-                            variant={
-                              user.availability === 'Available'
-                                ? 'default'
-                                : 'secondary'
-                            }
-                            className={
-                              user.availability === 'Available'
-                                ? 'bg-green-100 text-green-800 border-green-200'
-                                : ''
-                            }
-                          >
-                            {user.availability}
-                          </Badge>
-                          <div className='flex items-center space-x-1'>
-                            <Star className='h-5 w-5 fill-yellow-400 text-yellow-400' />
-                            <span className='font-medium text-gray-900'>
-                              {user.rating}
-                            </span>
-                          </div>
-                        </div>
-
-                        <p className='text-gray-600 mb-4 flex items-center'>
-                          <span className='w-2 h-2 bg-gray-400 rounded-full mr-2'></span>
-                          {user.location}
-                        </p>
-
-                        <div className='flex items-center space-x-8'>
-                          <div className='flex-1'>
-                            <span className='text-sm font-medium text-green-700 block mb-2'>
-                              Skills Offered
-                            </span>
-                            <div className='flex flex-wrap gap-2'>
-                              {user.skillsOffered.map((skill) => (
-                                <Badge
-                                  key={skill}
-                                  className='bg-green-50 text-green-700 border-green-200 hover:bg-green-100'
-                                >
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-
-                          <div className='flex-1'>
-                            <span className='text-sm font-medium text-amber-700 block mb-2'>
-                              Skills Wanted
-                            </span>
-                            <div className='flex flex-wrap gap-2'>
-                              {user.skillsWanted.map((skill) => (
-                                <Badge
-                                  key={skill}
-                                  className='bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100'
-                                >
-                                  {skill}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className='ml-6'>
-                      <Button className='bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 text-lg font-medium'>
-                        Send Request
-                      </Button>
                     </div>
                   </div>
                 </CardContent>
@@ -347,39 +229,6 @@ export default function SkillSwapLanding() {
             <Button variant='outline' size='sm'>
               Next
             </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Features Section */}
-      <section id='features' className='py-20 px-4'>
-        <div className='container mx-auto max-w-6xl'>
-          <div className='text-center mb-16'>
-            <h2 className='text-4xl font-bold text-gray-900 mb-4'>
-              Why Choose SkillSwap?
-            </h2>
-            <p className='text-xl text-gray-600 max-w-2xl mx-auto'>
-              We&apos;ve built the most comprehensive platform for skill exchange
-              with features designed to make learning collaborative and
-              effective.
-            </p>
-          </div>
-
-          <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
-            {features.map((feature, index) => (
-              <Card
-                key={index}
-                className='text-center p-6 hover:shadow-lg transition-shadow'
-              >
-                <CardContent className='pt-6'>
-                  <div className='flex justify-center mb-4'>{feature.icon}</div>
-                  <h3 className='text-xl font-semibold text-gray-900 mb-3'>
-                    {feature.title}
-                  </h3>
-                  <p className='text-gray-600'>{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
           </div>
         </div>
       </section>
@@ -437,87 +286,7 @@ export default function SkillSwapLanding() {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className='bg-gray-900 text-white py-12 px-4'>
-        <div className='container mx-auto max-w-6xl'>
-          <div className='grid md:grid-cols-4 gap-8'>
-            <div>
-              <div className='flex items-center space-x-2 mb-4'>
-                <div className='w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center'>
-                  <Users className='h-5 w-5 text-white' />
-                </div>
-                <span className='text-xl font-bold'>SkillSwap</span>
-              </div>
-              <p className='text-gray-400'>
-                Connecting learners worldwide through skill exchange.
-              </p>
-            </div>
-            <div>
-              <h4 className='font-semibold mb-4'>Platform</h4>
-              <ul className='space-y-2 text-gray-400'>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    How it Works
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Browse Skills
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Success Stories
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className='font-semibold mb-4'>Support</h4>
-              <ul className='space-y-2 text-gray-400'>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Help Center
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Safety Guidelines
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Contact Us
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h4 className='font-semibold mb-4'>Company</h4>
-              <ul className='space-y-2 text-gray-400'>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Careers
-                  </a>
-                </li>
-                <li>
-                  <a href='#' className='hover:text-white transition-colors'>
-                    Privacy Policy
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className='border-t border-gray-800 mt-8 pt-8 text-center text-gray-400'>
-            <p>&copy; 2024 SkillSwap. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

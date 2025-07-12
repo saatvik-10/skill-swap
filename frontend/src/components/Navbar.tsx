@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Home, Bell, Menu, User, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Users } from 'lucide-react';
+import Link from 'next/link';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -20,26 +21,26 @@ export default function Navbar() {
             <div className='w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center'>
               <Users className='h-5 w-5 text-white' />
             </div>
-            <span className='text-xl font-bold text-gray-900'>SkillSwap</span>
+            <Link href={'/'} className='text-xl font-bold text-gray-900'>SkillSwap</Link>
           </div>
 
           {/* Desktop Navigation */}
           <nav className='hidden md:flex items-center space-x-6'>
-            <a
-              href='#'
+            <Link
+              href='/'
               className='flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors'
             >
               <Home className='h-4 w-4' />
               <span>Home</span>
-            </a>
-            <a
+            </Link>
+            <Link
               href='#'
               className='flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors relative'
             >
               <Bell className='h-4 w-4' />
               <span>Notifications</span>
               <div className='absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full'></div>
-            </a>
+            </Link>
 
             {/* User Profile Section */}
             <div className='flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200'>
