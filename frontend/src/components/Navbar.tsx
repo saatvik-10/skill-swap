@@ -2,11 +2,13 @@ import React from 'react';
 
 const Navbar = () => {
   return (
-    <div className='p-2'>
-      <div className='rounded-lg shadow-md my-4 p-4 bg-orange-500 text-white '>
+    <div>
+      <div className='rounded-lg shadow-md my-6 p-4 bg-blue-500 text-white '>
         <div className='flex items-center justify-between'>
-          <span>Skill-Swap</span>
-          <span>Login</span>
+          <span className='font-bold'>Skill-Swap</span>
+          <span className='bg-white text-blue-500 py-1 px-2 rounded-lg'>
+            Login
+          </span>
         </div>
       </div>
     </div>
