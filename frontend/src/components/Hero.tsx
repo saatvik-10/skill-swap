@@ -1,3 +1,5 @@
+'use client';
+
 import { Search, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -11,8 +13,22 @@ import {
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
+// interface User {
+//   id: number;
+//   name: string;
+//   skillsOffered: string[];
+//   skillsWanted: string[];
+//   rating: number;
+//   profilePhotoUrl?: string;
+//   availability: 'Available' | 'Busy';
+//   location: string;
+// }
 
 export default function SkillSwapLanding() {
+  const route = useRouter();
+
   const users = [
     {
       id: 1,
@@ -200,8 +216,11 @@ export default function SkillSwapLanding() {
                         </div>
                       </div>
                       <div className='flex justify-end mt-4'>
-                        <Button className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 text-base font-semibold rounded-xl shadow-md'>
-                          Send Request
+                        <Button
+                          onClick={() => route.push(`/user/${user.id}`)}
+                          className='bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 text-base font-semibold rounded-xl shadow-md'
+                        >
+                          View Details
                         </Button>
                       </div>
                     </div>
@@ -285,7 +304,6 @@ export default function SkillSwapLanding() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
