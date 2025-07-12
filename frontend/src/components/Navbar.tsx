@@ -28,26 +28,19 @@ export default function Navbar() {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className='hidden md:flex items-center space-x-6'>
+          <nav className='hidden md:flex items-center'>
             <Link
               href='/'
-              className='flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors'
+              className='flex items-center gap-1 text-gray-600 hover:text-gray-900 transition-colors'
             >
               <Home className='h-4 w-4' />
               <span>Home</span>
-            </Link>
-            <Link
-              href='#'
-              className='flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors relative'
-            >
-              <span>Notifications</span>
-              <div className='absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full'></div>
             </Link>
             <NotificationModal />
           </nav>
 
           {/* User Profile Section */}
-          <div className='flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200'>
+          <div className='hidden md:flex items-center space-x-4 ml-4 pl-4 border-l border-gray-200'>
             <div className='flex items-center space-x-2'>
               <div className='w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center'>
                 <User className='h-4 w-4 text-blue-500' />
@@ -62,43 +55,44 @@ export default function Navbar() {
               Log out
             </Button>
           </div>
-        </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className='md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors'
-          onClick={toggleMobileMenu}
-          aria-label='Toggle mobile menu'
-        >
-          {isMobileMenuOpen ? (
-            <X className='h-6 w-6' />
-          ) : (
-            <Menu className='h-6 w-6' />
-          )}
-        </button>
+          {/* Mobile Menu Button */}
+          <Button
+            variant={'outline'}
+            className='md:hidden p-2 text-gray-600 hover:text-gray-900 transition-colors'
+            onClick={toggleMobileMenu}
+            aria-label='Toggle mobile menu'
+          >
+            {isMobileMenuOpen ? (
+              <X className='h-6 w-6' />
+            ) : (
+              <Menu className='h-6 w-6' />
+            )}
+          </Button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}
       {isMobileMenuOpen && (
-        <div className='md:hidden mt-4 pb-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-200'>
+        <div className='md:hidden mt-4 pb-4 border-t border-gray-200 animate-in slide-in-from-top-2 duration-200 px-4'>
           <div className='flex flex-col space-y-4 pt-4'>
-            <a
-              href='#'
+            <Link
+              href='/'
               className='flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors'
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <Home className='h-5 w-5' />
               <span>Home</span>
-            </a>
-            <a
-              href='#'
+            </Link>
+            <Link
+              href='/notification'
               className='flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors'
               onClick={() => setIsMobileMenuOpen(false)}
             >
               <Bell className='h-5 w-5' />
               <span>Notifications</span>
-              <div className='w-2 h-2 bg-red-500 rounded-full ml-1'></div>
-            </a>
+              <div className='w-2 h-2 bg-red-500 rounded-full'></div>
+            </Link>
 
             {/* Mobile User Profile */}
             <div className='flex items-center space-x-3 pt-2 border-t border-gray-100'>
@@ -118,7 +112,7 @@ export default function Navbar() {
               <Button
                 variant='outline'
                 size='sm'
-                className='flex-1 bg-red-500'
+                className='flex-1 bg-red-500 text-white'
                 onClick={() => setIsMobileMenuOpen(false)}
               >
                 Log out

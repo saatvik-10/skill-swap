@@ -89,14 +89,14 @@ export default function SkillSwapLanding() {
             <div className='flex-1'>
               <Input
                 placeholder='Search for skills (e.g., JavaScript, Photography, Guitar)'
-                className=' text-base sm:text-lg'
+                className=' text-base sm:text-lg text-blue-500 bg-white'
               />
             </div>
             <Select>
-              <SelectTrigger className='w-full sm:w-48 h-12'>
+              <SelectTrigger className='w-full sm:w-48 h-12 text-blue-500 bg-white'>
                 <SelectValue placeholder='Availability' />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className='text-blue-500 bg-white'>
                 <SelectItem value='all'>All Users</SelectItem>
                 <SelectItem value='available'>Available Now</SelectItem>
                 <SelectItem value='this-week'>This Week</SelectItem>
@@ -105,15 +105,15 @@ export default function SkillSwapLanding() {
             </Select>
             <Button
               size='sm'
-              className='px-6 sm:px-8 bg-blue-500 hover:bg-blue-600'
+              className='px-6 sm:px-8 bg-blue-500 hover:bg-blue-600 cursor-pointer'
             >
-              <Search className='h-5 w-5 mr-2' />
+              <Search className='h-5 w-5 mr-1' />
               Search
             </Button>
           </div>
 
           {/* User Cards */}
-          <div className='space-y-6 bg-gradient-to-br from-slate-50 to-blue-50 w-max'>
+          <div className='space-y-6 bg-gradient-to-br from-slate-50 to-blue-50'>
             {users.map((user) => (
               <Card
                 key={user.id}
