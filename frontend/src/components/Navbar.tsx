@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Home, Bell, Menu, User, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Users } from 'lucide-react';
+import NotificationModal from './notificationModal';
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -36,9 +37,7 @@ export default function Navbar() {
               href='#'
               className='flex items-center space-x-2 text-gray-600 hover:text-gray-900 transition-colors relative'
             >
-              <Bell className='h-4 w-4' />
-              <span>Notifications</span>
-              <div className='absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full'></div>
+              <NotificationModal/>
             </a>
 
             {/* User Profile Section */}
