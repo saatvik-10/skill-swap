@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -12,7 +13,6 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Bell, Star } from 'lucide-react';
-import Link from 'next/link';
 
 interface NotificationUser {
   id: string;
@@ -49,15 +49,17 @@ const mockNotifications: NotificationUser[] = [
 ];
 
 export default function NotificationModal() {
+  const [open, setOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<
     'pending' | 'all' | 'accepted' | 'rejected'
   >('pending');
   const [notifications, setNotifications] = useState(mockNotifications);
+  const router = useRouter();
 
   const handleAccept = (id: string) => {
     setNotifications((prev) =>
       prev.map((notif) =>
-        notif.id === id ? { ...notif, status: 'accepted' as const } : notif
+        notif.id === id ? { ...notif, status: 'accepted' } : notif
       )
     );
   };
@@ -65,22 +67,19 @@ export default function NotificationModal() {
   const handleReject = (id: string) => {
     setNotifications((prev) =>
       prev.map((notif) =>
-        notif.id === id ? { ...notif, status: 'rejected' as const } : notif
+        notif.id === id ? { ...notif, status: 'rejected' } : notif
       )
     );
   };
 
-  const filteredNotifications = notifications.filter((notif) => {
-    if (activeTab === 'all') return true;
-    return notif.status === activeTab;
-  });
+  const filteredNotifications = notifications.filter((notif) =>
+    activeTab === 'all' ? true : notif.status === activeTab
+  );
 
-  const pendingCount = notifications.filter(
-    (n) => n.status === 'pending'
-  ).length;
+  const pendingCount = notifications.filter((n) => n.status === 'pending').length;
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           variant='ghost'
@@ -89,10 +88,11 @@ export default function NotificationModal() {
           <Bell className='h-5 w-5' />
           <span className='-ml-1'>Notification</span>
           {pendingCount > 0 && (
-            <Badge className='absolute -top-0.5 -right-1 h-2 w-2 rounded-full p-0 flex items-center justify-center text-xs bg-red-500'></Badge>
+            <Badge className='absolute -top-0.5 -right-1 h-2 w-2 rounded-full p-0 bg-red-500'></Badge>
           )}
         </Button>
       </DialogTrigger>
+
       <DialogContent className='max-w-md p-0 gap-0 bg-gray-50 shadow-md'>
         <DialogHeader className='p-6 pb-4 border-b'>
           <DialogTitle className='text-xl font-semibold'>
@@ -100,32 +100,23 @@ export default function NotificationModal() {
           </DialogTitle>
         </DialogHeader>
 
-        {/* Tabs */}
         <div className='flex border-b bg-gray-50'>
-          {[
-            {
-              key: 'pending' as const,
-              label: `Pending${pendingCount > 0 ? ` (${pendingCount})` : ''}`,
-            },
-            { key: 'all' as const, label: 'All' },
-            { key: 'accepted' as const, label: 'Accepted' },
-            { key: 'rejected' as const, label: 'Rejected' },
-          ].map((tab) => (
+          {['pending', 'all', 'accepted', 'rejected'].map((tab) => (
             <button
-              key={tab.key}
-              onClick={() => setActiveTab(tab.key)}
+              key={tab}
+              onClick={() => setActiveTab(tab as NotificationUser['status'] | 'all')}
               className={`px-4 py-3 text-sm font-medium transition-colors ${
-                activeTab === tab.key
+                activeTab === tab
                   ? 'text-blue-600 border-b-2 border-blue-600 bg-white'
                   : 'text-gray-600 hover:text-gray-900'
               }`}
             >
-              {tab.label}
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              {tab === 'pending' && pendingCount > 0 && ` (${pendingCount})`}
             </button>
           ))}
         </div>
 
-        {/* Notifications List */}
         <div className='max-h-96 overflow-y-auto'>
           {filteredNotifications.length === 0 ? (
             <div className='p-8 text-center text-gray-500'>
@@ -220,7 +211,7 @@ export default function NotificationModal() {
                           <Button
                             size='sm'
                             onClick={() => handleAccept(notification.id)}
-                            variant={'outline'}
+                            variant='outline'
                             className='border-green-800 text-green-800 hover:text-green-800 hover:bg-green-100'
                           >
                             Accept
@@ -228,7 +219,7 @@ export default function NotificationModal() {
                           <Button
                             size='sm'
                             className='border-red-800 text-red-800 hover:text-red-800 hover:bg-red-100'
-                            variant={'outline'}
+                            variant='outline'
                             onClick={() => handleReject(notification.id)}
                           >
                             Reject
@@ -243,16 +234,18 @@ export default function NotificationModal() {
           )}
         </div>
 
-        {/* Show More Link */}
+        {/* Show More Button - now closes modal and navigates */}
         <div className='p-4 border-t bg-gray-50'>
-          <Link href='/notifications' className='block'>
-            <Button
-              variant='ghost'
-              className='w-full text-blue-600 hover:text-blue-700 hover:bg-blue-50'
-            >
-              Show more...
-            </Button>
-          </Link>
+          <Button
+            variant='ghost'
+            className='w-full text-blue-600 hover:text-blue-700 hover:bg-blue-50'
+            onClick={() => {
+              setOpen(false);
+              setTimeout(() => router.push('/notifications'), 200);
+            }}
+          >
+            Show more...
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
