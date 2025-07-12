@@ -18,7 +18,7 @@ export class User {
 
   async getMe() {
     const { data } = await this.axios.get("/user/me");
-    return data;
+    return data as UserType;
   }
 
   async searchUsers(search: string) {
