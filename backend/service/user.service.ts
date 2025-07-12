@@ -27,6 +27,6 @@ export class UserService {
   }
 
   async getAllPublicUsers() {
-    return Users.find({ public: true });
+    return Users.find({ public: true }).select("-hash -__v");
   }
 }

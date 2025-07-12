@@ -35,7 +35,7 @@ export class AuthController {
         {
           token,
           user: responseUserSchema.parse({
-            ...user,
+            ...user.toObject(),
             _id: user._id.toString(),
           }),
         },
@@ -65,17 +65,19 @@ export class AuthController {
       const { hash } = await getPasswordKeys(body.password);
       const createdUser = await userService.createUser(body, hash);
       const token = await generateJWT({ _id: createdUser._id.toString() });
+
       return ctx.json(
         {
           token,
           user: responseUserSchema.parse({
-            ...createdUser,
+            ...createdUser.toObject(),
             _id: createdUser._id.toString(),
           }),
         },
         StatusCodes.OK,
       );
     } catch (err) {
+      console.error("Error caught : ",err); 
       if (err instanceof ZodError) {
         return ctx.json(err.issues, StatusCodes.BAD_REQUEST);
       }

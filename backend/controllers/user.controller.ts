@@ -28,7 +28,13 @@ export class UserController {
     try {
       const userId = ctx.req.param("id");
       const user = await userService.getUserById(userId);
-      return ctx.json(user, StatusCodes.OK);
+      if(!user) {
+        return ctx.json({ error: "User not found" }, StatusCodes.NOT_FOUND);
+      }
+      return ctx.json(responseUserSchema.parse({
+        ...user.toObject(),
+        _id: user._id.toString(),
+      }), StatusCodes.OK);
     } catch (err) {
       return ctx.json(
         { error: "Internal Server Error" },
