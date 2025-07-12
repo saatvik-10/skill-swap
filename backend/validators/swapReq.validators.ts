@@ -9,3 +9,10 @@ export const createSwapRequestSchema = z.object({
 })
 
 export type CreateSwapRequest = z.infer<typeof createSwapRequestSchema>;
+
+export const swapRequestStatusSchema = z.object({
+    reqId : z.string(),
+    status: z.enum([ "accepted", "rejected"]),
+})
+
+export type SwapRequestStatus = z.infer<typeof swapRequestStatusSchema>;
