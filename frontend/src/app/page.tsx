@@ -1,10 +1,9 @@
-import { Button } from '@/components/ui/button';
+import Navbar from '@/components/Navbar';
 
 export default function Home() {
   return (
     <div>
-      Template by Saatvik
-      <Button className='bg-red-500 text-white'>Click</Button>
+      <Navbar />
     </div>
   );
 }
