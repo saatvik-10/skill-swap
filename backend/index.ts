@@ -16,4 +16,8 @@ app.use(
 
 app.route("/", routes);
 
-export default app;
+
+export default { 
+  port: process.env.PORT || 5000, 
+  fetch: app.fetch, 
+} 
