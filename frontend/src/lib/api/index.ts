@@ -17,7 +17,8 @@ class ApiSdk {
     ax.interceptors.request.use(async (config) => {
       if (typeof window === "undefined") {
         const { cookies } = await import("next/headers");
-        config.headers["auth-admin"] = cookies().get("token")?.value;
+        const cookieStore = await cookies();
+        config.headers["auth-admin"] = cookieStore.get("token")?.value;
       } else {
         config.headers["auth-admin"] = Cookies.get().token ?? "";
       }
