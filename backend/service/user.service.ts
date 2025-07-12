@@ -1,13 +1,21 @@
 import Users from "../models/userModel";
-import type { User } from "../validators/user.validator";
+import type { RegisterUser, User } from "../validators/user.validator";
 
 export class UserService {
   async getUserById(id: string) {
     return Users.findById(id);
   }
 
-  async createUser(user: User) {
-    return Users.create(user);
+  async getUserByEmail(email: string) {
+    return Users.findOne({ email });
+  }
+
+  async createUser(user: RegisterUser, hash: string) {
+    return Users.create({
+      email: user.email,
+      name: user.name,
+      hash,
+    });
   }
 
   async updateUser(id: string, user: Partial<User>) {
