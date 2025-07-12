@@ -2,15 +2,18 @@ import axios, { Axios } from "axios";
 import { User } from "./user";
 import Cookies from "js-cookie";
 import { Auth } from "./auth";
+import { Swap } from "./swap";
 
 class ApiSdk {
   private readonly _axios: Axios;
   user: User;
   auth: Auth;
+  swap: Swap;
   constructor() {
     this._axios = this.createAxios();
     this.user = new User(this._axios);
     this.auth = new Auth(this._axios);
+    this.swap = new Swap(this._axios);
   }
   private createAxios(): Axios {
     const ax = axios.create();
