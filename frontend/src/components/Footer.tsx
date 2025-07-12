@@ -6,7 +6,7 @@ const Footer = () => {
       {/* Footer */}
       <footer className='bg-gray-900 text-white'>
         <div className='container py-3 flex items-center justify-center'>
-          <div className='border-t border-gray-800 text-center text-gray-400'>
+          <div className='border-t border-gray-800 text-center text-white'>
             <p>
               &copy; {new Date().getFullYear()} SkillSwap. All rights reserved.
             </p>

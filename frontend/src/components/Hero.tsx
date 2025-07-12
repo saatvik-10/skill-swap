@@ -63,16 +63,17 @@ export default function SkillSwapLanding() {
       <section className='py-20 px-4'>
         <div className='container mx-auto text-center max-w-4xl'>
           <h1 className='text-5xl md:text-6xl font-bold text-gray-900 mb-6 leading-tight'>
-            Learn New Skills by
+            Trade Talents &
             <span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'>
               {' '}
-              Teaching Others
+              Team Up
             </span>
           </h1>
           <p className='text-xl text-gray-600 mb-8 max-w-2xl mx-auto'>
-            Connect with like-minded learners, exchange skills, and grow
-            together. From coding to cooking, find your perfect learning partner
-            today.
+            One-stop hub to connect with like-minded creators, form the perfect
+            team, and bring your ideas to life—together. Whether you code,
+            design, write, or strategize, there&apos;s a teammate waiting for
+            you.
           </p>
         </div>
       </section>
