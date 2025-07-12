@@ -87,7 +87,7 @@ export default function Navbar() {
               <span>Home</span>
             </Link>
             <Link
-              href='/notification'
+              href='/notifications'
               className='flex items-center space-x-3 text-gray-600 hover:text-gray-900 transition-colors'
               onClick={() => setIsMobileMenuOpen(false)}
             >
